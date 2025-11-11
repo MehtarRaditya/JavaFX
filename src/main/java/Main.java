@@ -1,8 +1,7 @@
 
-import java.io.File;
-import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,11 +17,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL url = new File("src/main/resources/JavaFX.fxml").toURI().toURL();
-        Scene scene = new Scene(FXMLLoader.load(url));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProdukSusu.fxml"));
+        Parent root = loader.load();
 
-        stage.setTitle("TernaX Testing");
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        stage.setTitle("TernaX Produk Testing");
         stage.show();
     }
 }
