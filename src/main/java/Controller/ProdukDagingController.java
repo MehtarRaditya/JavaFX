@@ -5,6 +5,9 @@ import Model.Daging;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Model.Susu;
+import Model.Telur;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class ProdukDagingController implements Initializable {
+public class ProdukDagingController implements Initializable, ProdukReceiver {
     @FXML
     private TableColumn<Daging, Integer> ColIdDaging;
     @FXML
@@ -78,14 +81,27 @@ public class ProdukDagingController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddProduk.fxml"));
             Parent root = loader.load();
 
+            TambahProdukController modalController = loader.getController();
+            modalController.setReceiver(this);
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Tambah Produk");
-            stage.setResizable(false);
             stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void addDaging(Daging daging) {
+        dataDaging.add(daging);
+        tvDaging.refresh();
+    }
+
+    @Override
+    public void addSusu(Susu susu) {}
+
+    @Override
+    public void addTelur(Telur telur) {}
 }
